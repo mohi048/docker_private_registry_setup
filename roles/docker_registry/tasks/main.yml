@@ -1,0 +1,41 @@
+---
+
+- name: "Upgrading pip"
+  shell: pip install --upgrade pip
+
+
+- name: "Installing docker registry"
+  pip: name=docker-registry state=present
+
+- name: "Creating docker registry directives to store images"
+  shell: mkdir -p {{docker_registry_store_path}}
+
+
+- name: "Updating permissions for docker registry directives to store images"
+  shell: chown www-data:www-data {{docker_registry_store_path}}
+
+
+- name: "Creating docker registry configuration directory "
+  shell: mkdir -p {{docker_configuration_path}}
+
+- name: "Creating docker logs directory"
+  shell: mkdir -p {{docker_log_path}}
+
+- name: "Updating permissions for  docker logs directory"
+  shell: chown www-data:www-data {{docker_log_path}}
+
+
+- name: "Creating docker registry configuration file"
+  template: src=config.j2 dest={{docker_configuration_path}}/config.yml owner=root group=root
+
+- name: "Creating docker-registry startup script"
+  template:
+    src: docker-registry.j2
+    dest: /etc/init/docker-registry.conf
+    mode: 777
+
+
+#- name: "Updating permissions for docker-registry startup script"
+#  shell: chmod 777 /etc/init/docker-registry.conf
+
+

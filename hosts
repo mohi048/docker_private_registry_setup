@@ -1,0 +1,7 @@
+# Deploy Docker private registry
+
+[docker_registry_hosts]
+192.168.56.105
+
+[docker_registry_hosts:vars]
+ansible_password=123456

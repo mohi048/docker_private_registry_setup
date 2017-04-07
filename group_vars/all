@@ -1,0 +1,4 @@
+docker_image_store_path: /var/docker/
+docker_registry_store_path: /var/docker/docker-registry
+docker_configuration_path: /etc/docker
+docker_log_path: /var/log/docker

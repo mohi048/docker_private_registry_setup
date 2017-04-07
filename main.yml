@@ -1,0 +1,8 @@
+---
+
+  - hosts: docker_registry_hosts
+    user: root
+    roles:
+        - post_install
+        - docker_registry
+
